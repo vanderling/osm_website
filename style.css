@@ -1,0 +1,269 @@
+/* use Charis SIL - Regular in .woff format */
+@font-face {
+  font-family: CharisSILW;
+  src: url(fonts/CharisSIL-R.woff);
+}
+
+/* use Charis SIL - Italic in .woff format */
+@font-face {
+  font-family: CharisSILW;
+  font-style: italic;
+  src: url(fonts/CharisSIL-I.woff);
+}
+
+@font-face {
+	font-family: CharisSILW;
+	font-weight: bold;
+	src: url(fonts/CharisSIL-B.woff);
+}
+
+@font-face {
+	font-family: CharisSILW;
+	font-weight: bold;
+	font-style: italic;
+	src: url(fonts/CharisSIL-BI.woff);
+}
+
+/* remove bold styling from heading */
+h1 {
+    font-weight: normal;	
+}
+
+
+
+body {
+    font-family: CharisSILW, sans-serif;
+    background-color: #ffffcc; 
+    text-align:center; /* for IE */
+    margin:0 auto; /* for the rest */
+}
+
+textarea {
+    font-family: CharisSILW, sans-serif;
+}
+
+select {
+
+}
+
+
+#docSelect {
+    position:absolute;
+    top:50px;
+    left:0px;
+    width:190px;
+    height:600px;
+    padding:5px;
+    overflow-x: hidden; 
+    overflow-y: auto; 
+}
+
+#bookSelect {
+    position:absolute;
+    top:0px;
+    left:200px;
+    width:1000px;
+    height:50px;
+}
+
+#doc {
+    position:absolute;
+    top:50px;
+    left:200px;
+    width:1000px;
+    height:600px;
+    overflow-x: hidden; 
+    overflow-y: auto; 
+}
+
+#notation {
+    position:absolute;
+    top:650px;
+    left:200px;
+    width:980px;
+    height:200px;
+    padding:10px;
+    border:1px solid black;
+    font-size:100%;
+    overflow-x: hidden; 
+    overflow-y: auto; 
+}
+
+#pageControlTop {
+    position:absolute;
+    top:0px;
+    left:1200px;
+    width:250px;
+    height:50px;
+    padding:5px;
+}
+
+#pageControlBottom {
+    position:absolute;
+    top:610px;
+    left:1200px;
+    width:250px;
+    height:50px;
+    padding:5px;
+}
+
+#annotations {
+    position:absolute;
+    top:50px;
+    left:1200px;
+    width:250px;
+    height:550px;
+    padding:5px;
+    overflow-x: hidden; 
+    overflow-y: auto;
+}
+
+.thumbSelection {
+   filter:alpha(opacity=50);
+   MozOpacity:.5;
+   opacity:.5;
+}
+
+
+#viewBookSelect {
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:850px;
+    height:50px;
+}
+#viewBookSelect table{
+    width:100%;
+    line-height:90%;
+}
+
+#viewDoc {
+    position:absolute;
+    top:70px;
+    left:0px;
+    width:850px;
+    height:300px;
+    overflow-x: hidden; 
+    overflow-y: auto; 
+    border: 4px solid #CED5E5;
+    box-shadow: 0 0 18px 5px #CCCCCC;
+    margin-left:20px;
+    background-color:#ffffff;
+}
+
+#viewAnnotationsDiv {
+    text-align:justify;
+    font-size:80%;
+    line-height:1.2;
+    visibility:hidden;
+    background:#cccccc;
+    width: 400px;
+    padding: 10px;
+    position: absolute;
+    z-index:9999;
+    border: 4px solid #CED5E5;
+    box-shadow: 0 0 18px 5px #cc9966;
+}
+
+#viewAnnotations {
+    overflow-x: hidden; 
+    overflow-y: auto;
+}
+
+#viewTitle {
+    position:absolute;
+    top:390px;
+    left:0px;
+    width:850px;
+    height:30px;
+    text-align:center;
+    font-size:100%;
+    font-weight:bold;
+    margin-left:20px;
+}
+
+#previousPage {
+    float:left;
+}
+
+#nextPage {
+    float:right;
+}
+
+#viewNotations {
+    position:absolute;
+    top:420px;
+    left:0px;
+    width:810px;
+    height:300px;
+    padding-left:20px;
+    padding-right:20px;
+    text-align:justify;
+    font-size:100%;
+    overflow-x: hidden; 
+    overflow-y: auto; 
+    background-color:#ffffff;
+    border: 4px solid #CED5E5;
+    box-shadow: 0 0 18px 5px #CCCCCC;
+    margin-left:20px;
+}
+
+.paragraph {
+    margin-top : 10px; 
+    text-indent: 10px; 
+    display:block;
+}
+
+.verse {
+    font-size:12px;
+    vertical-align:super;
+    color:blue;
+    padding-left: 10px;
+    padding-right: 5px;
+    display:inline;
+}
+
+.chapter {
+    font-size:44px;
+    color:purple;
+    text-align:center;
+    display:inline;
+    float: left;
+    padding-right:10px;
+    margin-top:-18px;
+}
+
+.quote {
+    border-bottom:1px solid red;
+    display:inline;
+    margin:0px;
+    padding:0px;
+}
+
+a {
+    text-decoration:none;
+    display:inline;
+    color:black;
+    margin:0px;
+    padding:0px;
+}
+
+.title {
+     font-size: 24px;
+     text-align: center;
+     width: 100%;
+}
+
+.subHeader {
+     font-size: 16px;
+     text-align: center;
+     width: 100%;
+     display:block;
+     margin-top:.25in;
+}
+
+#editHeading {
+    text-align:left;
+    font-size: 125%;
+    padding:20px;
+}
