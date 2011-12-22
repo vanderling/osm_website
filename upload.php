@@ -310,7 +310,7 @@ if($key=='RUT.002.010' or $key=='RUT.002.011' or $key=='RUT.002.012')
 /** this code may not logically get used **/
 
       // extract Category, Quote, Discussion, Discussion
-      if(count($p['annotation'])>1)
+      if(isset($p['annotation'][0]))
       {
        for($pp=0; $pp<count($p['annotation']); $pp++)
        {
@@ -344,7 +344,7 @@ if($akey=='RUT.002.010' or $akey=='RUT.002.011' or $akey=='RUT.002.012')
          $book[$akey]['notationRecommendation'][] = str_replace('"', "''", $p['annotation'][$pp]['notationRecommendation']['para']['a']['value']);
        }
       }
-      else
+      elseif (isset($p['annotation']))
       {
        $akey = $p['annotation']['attr']['oxesRef'];
        list($b, $c, $v) = explode(".", $akey);
