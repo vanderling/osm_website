@@ -17,6 +17,7 @@ $menu_tabs   = array
   'sync.php'=>'Synchronize',
   'viewParent.php'=>'View',
   'translations.php'=>'Translations',
+  'reprocess.php'=>'Reprocess',
   'user.php'=>'Users'
  );
 

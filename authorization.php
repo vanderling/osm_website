@@ -8,7 +8,12 @@
 /*                 ken@marshallcomputer.net                                   */
 /******************************************************************************/
 
-$script_name =  substr(getenv('SCRIPT_NAME'),strrpos(getenv('SCRIPT_NAME'),'/')+1);
+$script_name = $_SERVER['SCRIPT_NAME'];
+$pos = strrpos($script_name,'/');
+if ($pos >= 0)
+{
+	$script_name = substr($script_name,$pos+1);
+}
 
 if($script_name=='default.php')
  {list($sec_name, $sec_password)   = explode("-", $cookie_data);}
