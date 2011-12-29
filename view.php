@@ -170,26 +170,25 @@ while($myrow=mysql_fetch_array($result))
   $i++;
  }
 
-
+ // normalize data to make matching work better
+ $dnotation = Normalizer::normalize($dnotation, Normalizer::FORM_KC);
+ 
  // quotes
  $ii = 0;
  foreach($quotes as $quote) 
  {
   // underline single instance of quote field
-  if(Normalizer::isNormalized($quote, Normalizer::FORM_KC))
-  {$dnotation = str_replace($quote, "\r\n<div id=\"quote".$myrow['key']."_".$ii."\" class=\"quote\" onclick=setTimeout(\"setAnnotations('".$myrow['key']."_".$ii."')\",250); onclick=setTimeout(\"setAnnotations('".$myrow['key']."_".$ii."')\",250);><a href=\"#\">".$quote."</a></div>", $dnotation);}
-  else
+  $quote = Normalizer::normalize($quote, Normalizer::FORM_KC);
+  if ($quote != "")
   {
-   $rquote = Normalizer::normalize($quote, Normalizer::FORM_KC);  
-   $dnotation = str_replace($rquote, "\r\n<div id=\"quote".$myrow['key']."_".$ii."\" class=\"quote\" onclick=setTimeout(\"setAnnotations('".$myrow['key']."_".$ii."')\",250); onclick=setTimeout(\"setAnnotations('".$myrow['key']."_".$ii."')\",250);><a href=\"#\">".$rquote."</a></div>", $dnotation);
+   $dnotation = str_replace($quote, "\r\n<div id=\"quote".$myrow['key']."_".$ii."\" class=\"quote\" onclick=setTimeout(\"setAnnotations('".$myrow['key']."_".$ii."')\",250); onclick=setTimeout(\"setAnnotations('".$myrow['key']."_".$ii."')\",250);><a href=\"#\">".$quote."</a></div>", $dnotation);
+   $quotes[$quote] = $myrow['key']."_".$ii;  
+
+   $js_annotations .= "\"".$myrow['key']."_".$ii."\":\"".
+   str_replace($s, $r, $quote)."^".
+   str_replace($s, $r, $discussions[$ii])."^".
+   str_replace($s, $r, $recommendations[$ii])."\",";
   }
-
-  $quotes[$quote] = $myrow['key']."_".$ii;  
-
-  $js_annotations .= "\"".$myrow['key']."_".$ii."\":\"".
-  str_replace($s, $r, $quote)."^".
-  str_replace($s, $r, $discussions[$ii])."^".
-  str_replace($s, $r, $recommendations[$ii])."\",";
 
   $ii++;
  }

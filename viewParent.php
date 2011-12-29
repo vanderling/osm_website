@@ -13,7 +13,7 @@ require "head.php";
 
 echo "
 
-<iframe src='http://as.marshallcomputer.org/view.php?iso=".$sec_code."' width=900px; height=740px;></iframe>
+<iframe src='view.php?iso=".$sec_code."' width=900px; height=740px;></iframe>
 
 
 <h3>Embed code:</h3>
