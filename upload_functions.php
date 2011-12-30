@@ -200,20 +200,25 @@ function processUpload($bookId, $bibleTitleId)
 
    $contents = xml2array(file_get_contents($docDir."/".$file));
    $book = array();
-   // extract title information
-   $annotation = $contents['oxes']['oxesText']['canon']['book']['titleGroup']['title']['annotation'];
 
-   $key = $annotation['attr']['oxesRef'];
-   list($b, $c, $v) = explode(".", $key);
-   $key = $b.".".str_pad($c,3,"0",STR_PAD_LEFT).".".str_pad($v,3,"0",STR_PAD_LEFT); 
-
-   $book[$key]['notationCategory'][]       = str_replace('"', '\"', $annotation['notationCategories']['category']['value']);
-   $book[$key]['notationQuote'][]          = str_replace('"', '\"', $annotation['notationQuote']['para']['span']['value']);
-   $book[$key]['notationDiscussion'][]     = str_replace('"', '\"', $annotation['notationDiscussion']['para']['span']['value']);
-   $book[$key]['notationRecommendation'][] = str_replace('"', '\"', $annotation['notationRecommendation']['para']['a']['value']);
+   $b = $contents['oxes']['oxesText']['canon']['book']['attr']['ID'];
+   $key = $b.".000.000"; 
 
    $book[$key]['notation'][] = "<center><span class=\"title\">".$contents['oxes']['oxesText']['canon']['book']['titleGroup']['title']['trGroup']['tr']['value']."</span></center>";
 
+   // extract title information
+   $annotation = $contents['oxes']['oxesText']['canon']['book']['titleGroup']['title']['annotation'];
+   if (isset($annotation[0]))
+   {
+       for($a=0; $a<count($annotation); $a++)
+       {
+       	processAnnotation($book, $annotation[$a]);
+       }
+   }
+   elseif (isset($annotation))
+   {
+	processAnnotation($book, $annotation);
+   }
 
 
    // extract book contents
@@ -229,13 +234,18 @@ function processUpload($bookId, $bibleTitleId)
 
      foreach($ps as $p)
      {
+	  // skip empty paragraphs
+	  if(!isset($p['trGroup'])) {continue;}
       $paragraph = "Y";
 
       // extract verseStart, verseEnd, notation
+	  if (!$p['trGroup'][0]) {$p['trGroup'] = array($p['trGroup']);}
        for($pp=0; $pp<count($p['trGroup']); $pp++)
        {
         if($p['verseEnd'][$pp]['attr']['ID']) {$key = $p['verseEnd'][$pp]['attr']['ID'];}
+        elseif($pp == 0 && $p['verseEnd']['attr']['ID']) {$key = $p['verseEnd']['attr']['ID'];}
         elseif($p['verseStart'][$pp]['attr']['ID']) {$key = $p['verseStart'][$pp]['attr']['ID'];}
+        elseif($p['verseStart'][$pp-1]['attr']['ID']) {$key = $p['verseStart'][$pp-1]['attr']['ID'];}
         elseif($p['verseStart']['attr']['ID'])      {$key = $p['verseStart']['attr']['ID'];}
 
         list($b, $c, $v) = explode(".", $key);
@@ -256,24 +266,6 @@ function processUpload($bookId, $bibleTitleId)
          }
         }
        }
-
-
-/** this code may not logically get used **/
-       if($p['trGroup']['tr']['value'])
-       {
-        // add subheader class 
-        if($psType=='sectionHead')
-        {
-         $book[$key]['notation'][]  = "<center><span class=\"subHeader\">".str_replace('"', '\"', $p['trGroup']['tr']['value'])."</span></center>";
-        }
-        else
-        {
-         $book[$key]['notation'][] = str_replace('"', '\"', $p['trGroup']['tr']['value']); 
-         $book[$key]['paragraph'][] = $paragraph;
-         $paragraph = '';
-        }
-       }
-/** this code may not logically get used **/
 
       // extract Category, Quote, Discussion, Discussion
       if(isset($p['annotation'][0]))
@@ -337,7 +329,8 @@ function processUpload($bookId, $bibleTitleId)
           `notation`       = '".str_replace("'","\'",serialize($data['notation']))."',
           `recommendation` = '".str_replace("'","\'",serialize($data['notationRecommendation']))."',
           `inactive`       = \"\",
-          `paragraph`      = '".serialize($data['paragraph'])."'
+          `paragraph`      = '".serialize($data['paragraph'])."',
+		  `coordinates`    = \"\"
          ";
          mysql_query($query) or die ("<pre>".$query.mysql_error()."</pre>");
        }
