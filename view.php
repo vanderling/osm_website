@@ -140,57 +140,63 @@ while($myrow=mysql_fetch_array($result))
  $recommendations = unserialize($myrow['recommendation']);
 
  $dnotation = '';
- $i = 0;
- foreach($notations as $notation) 
+ if (isset($notations[0]))
  {
-  if($paragraphs[$i]=='Y') 
-  {
-   if($i==0) {$dnotation = "<p />".$dnotation;}
-   else {$notation = "<div class=\"paragraph\"></div>&nbsp;&nbsp;".$notation;}
-  }
+	 $i = 0;
+	 foreach($notations as $notation) 
+	 {
+	  if($paragraphs[$i]=='Y') 
+	  {
+	   if($i==0) {$dnotation = "<p />".$dnotation;}
+	   else {$notation = "<div class=\"paragraph\"></div>&nbsp;&nbsp;".$notation;}
+	  }
 
-  list($book, $chapter, $verse) = explode(".", $myrow['key']);
-  $chapter = ltrim($chapter, '0');
-  $verse = ltrim($verse, '0');
+	  list($book, $chapter, $verse) = explode(".", $myrow['key']);
+	  $chapter = ltrim($chapter, '0');
+	  $verse = ltrim($verse, '0');
 
-  if($chapter and $verse)
-  {
-   if($chapter != $sav_chapter) 
-   {
-    $dnotation .= "\r\n<div id=\"chapter_".$chapter."\"  class=\"chapter\">".$chapter."</div>\r\n";
-    $chapter_options .= "<option value=\"chapter_".$chapter."\">".$chapter;
-   }
-   if($verse   != $sav_verse)  
-   {$dnotation .= "\r\n<div id=\"verse_p".$myrow['key']."\" class=\"verse\">".$verse."</div>\r\n";}
-   $sav_chapter = $chapter;   
-   $sav_verse   = $verse;
-  }
+	  if($chapter and $verse)
+	  {
+	   if($chapter != $sav_chapter) 
+	   {
+		$dnotation .= "\r\n<div id=\"chapter_".$chapter."\"  class=\"chapter\">".$chapter."</div>\r\n";
+		$chapter_options .= "<option value=\"chapter_".$chapter."\">".$chapter;
+	   }
+	   if($verse   != $sav_verse)  
+	   {$dnotation .= "\r\n<div id=\"verse_p".$myrow['key']."\" class=\"verse\">".$verse."</div>\r\n";}
+	   $sav_chapter = $chapter;   
+	   $sav_verse   = $verse;
+	  }
 
-  $dnotation .= $notation." ";
-  $i++;
+	  $dnotation .= $notation." ";
+	  $i++;
+	 }
  }
 
  // normalize data to make matching work better
  $dnotation = Normalizer::normalize($dnotation, Normalizer::FORM_KC);
  
  // quotes
- $ii = 0;
- foreach($quotes as $quote) 
+ if (isset($quotes[0]))
  {
-  // underline single instance of quote field
-  $quote = Normalizer::normalize($quote, Normalizer::FORM_KC);
-  if ($quote != "")
-  {
-   $dnotation = str_replace($quote, "\r\n<div id=\"quote".$myrow['key']."_".$ii."\" class=\"quote\" onclick=setTimeout(\"setAnnotations('".$myrow['key']."_".$ii."')\",250); onclick=setTimeout(\"setAnnotations('".$myrow['key']."_".$ii."')\",250);><a href=\"#\">".$quote."</a></div>", $dnotation);
-   $quotes[$quote] = $myrow['key']."_".$ii;  
+	$ii = 0;
+	foreach($quotes as $quote) 
+	{
+		// underline single instance of quote field
+		$quote = Normalizer::normalize($quote, Normalizer::FORM_KC);
+		if ($quote != "")
+		{
+			$dnotation = str_replace($quote, "\r\n<div id=\"quote".$myrow['key']."_".$ii."\" class=\"quote\" onclick=setTimeout(\"setAnnotations('".$myrow['key']."_".$ii."')\",250); onclick=setTimeout(\"setAnnotations('".$myrow['key']."_".$ii."')\",250);><a href=\"#\">".$quote."</a></div>", $dnotation);
+			$quotes[$quote] = $myrow['key']."_".$ii;  
 
-   $js_annotations .= "\"".$myrow['key']."_".$ii."\":\"".
-   str_replace($s, $r, $quote)."^".
-   str_replace($s, $r, $discussions[$ii])."^".
-   str_replace($s, $r, $recommendations[$ii])."\",";
-  }
+			$js_annotations .= "\"".$myrow['key']."_".$ii."\":\"".
+			str_replace($s, $r, $quote)."^".
+			str_replace($s, $r, $discussions[$ii])."^".
+			str_replace($s, $r, $recommendations[$ii])."\",";
+		}
 
-  $ii++;
+		$ii++;
+	}
  }
  $detail .= "\r\n<span id=\"notation_p".$myrow['key']."\" class=\"notation\">".$dnotation."</span>\r\n";
 }
