@@ -4,7 +4,11 @@ require "config.php";
 require "head.php";
 require "upload_functions.php";
 
-if($_POST['bibleTitle'])
+if($_POST['bibleTitle'] == 'ALL')
+{
+  $bibleTitleId = 'ALL';
+}
+elseif ($_POST['bibleTitle'])
 {
  $query =
  "SELECT * FROM `bibleTitles`
@@ -27,7 +31,11 @@ if($_POST['bibleTitle'])
  }
 }
 
-if($_POST['bookName'])
+if($_POST['bookName'] == 'ALL' || $bibleTitleId == 'ALL')
+{
+  $bookId = 'ALL';
+}
+elseif($_POST['bookName'])
 {
  $query =
  "SELECT * FROM `books`
@@ -56,9 +64,35 @@ if($_POST['bookName'])
  }
 }
 
+function processByQuery($query)
+{
+	$result=mysql_query($query) or die ("<pre>".$query.mysql_error()."</pre>");
+	$count = 0;
+	while($myrow=mysql_fetch_array($result))
+	{
+		processUpload($myrow['id'], $myrow['bibleTitleId']);
+		$count++;
+	}
+	return $count;
+}
+
+$processMessage = '';
 if($_POST['devent']=='reprocess_files')
 {
- processUpload($bookId, $bibleTitleId);
+ if ($bibleTitleId == 'ALL')
+ {
+  $nbrProcessed = processByQuery("select id, bibleTitleId from books order by 2, 1");
+  $processMessage = "All titles and books processed - total number of books = ".$nbrProcessed;
+ }
+ elseif ($bookId == 'ALL')
+ {
+  $nbrProcessed = processByQuery("select id, bibleTitleId from books where bibleTitleId = ".$bibleTitleId." order by 1");
+  $processMessage = "All books for title processed - total number of books = ".$nbrProcessed;
+ }
+ else
+ {
+	processUpload($bookId, $bibleTitleId);
+ }
 }
 
 
@@ -93,14 +127,8 @@ echo "
 
   function reprocess_files()
   {
-   errmsg = ''; 
-   if(!document.getElementById('bibleTitle').value) {errmsg += '".translate('title is required', $st, 'sys')."\\n';}
-   if(!document.getElementById('bookName').value)   {errmsg += '".translate('book name is required', $st, 'sys')."\\n';}
-   if(errmsg)
-   {
-    alert(errmsg);
-    return false;
-   }
+   if(!document.getElementById('bibleTitle').value) {document.getElementById('bibleTitle').value = 'ALL';}
+   if(!document.getElementById('bookName').value)   {document.getElementById('bookName').value = 'ALL';}
    document.getElementById('devent').value='reprocess_files';
    document.form1.submit();
   } 
@@ -122,7 +150,9 @@ echo "
    <option value=\"\"> -- ".translate('All Books', $st, 'sys')." -- 
    ".$bookName_options."
   </select> 
-  
+ 
+ <p />
+ ".$processMessage." 
  <p />
   <input type=button value=\"".translate('Reprocess files', $st, 'sys')."\" onclick=\"reprocess_files()\">
 
