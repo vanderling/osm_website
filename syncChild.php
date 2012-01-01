@@ -119,11 +119,11 @@ while($myrow=mysql_fetch_array($result))
  }
 
  $annotations .= "
-  <div $style name=\"p".$myrow['key']."\" id=\"p".$myrow['key']."\" onclick=\"focusAnnotation(this, '".str_replace("'", "\\'", strip_tags($dnotation))."');\">
+  <div $style name=\"p".$myrow['key']."\" id=\"p".$myrow['key']."\" title='".str_replace("'", "\\'", strip_tags($dnotation))."' onclick=\"focusAnnotation(this)\"\">
    <div style=\"float:right\">
     <img src='images/edit.png'
      onclick=\"editVerse('".$myrow['id']."','".$myrow['key']."');\"
-     title='".translate('Delete image highlight', $st, 'sys')."'>
+     title='".translate('Edit verse details', $st, 'sys')."'>
     <img src='images/delete.png'
      onclick=\"removeElement('p".$myrow['key']."');\"
      title='".translate('Delete image highlight', $st, 'sys')."'>
@@ -217,13 +217,14 @@ echo "
      var divIdName = 'marker_'+key;
      newdiv.setAttribute('id',divIdName);
      newdiv.setAttribute('onMouseover','docFocus=true;');
+     newdiv.setAttribute('onclick', 'focusCoord(this)');
      newdiv.style.position = 'absolute';
      newdiv.style.top = t;
      newdiv.style.left = l;
      newdiv.style.width = w;
      newdiv.style.height = h;
      newdiv.style.zIndex = '2';
-     newdiv.style.background = '#009900';
+     newdiv.style.background = 'darkgreen';
      newdiv.style.filter = 'alpha(opacity=50)';
      newdiv.style.MozOpacity = .5;
      newdiv.style.opacity = .5;
@@ -233,7 +234,7 @@ echo "
   }
 
 
-  function focusAnnotation(p, notation)
+  function focusAnnotation(p)
   {
    updateCoordinates();
 
@@ -246,10 +247,11 @@ echo "
    if(lastPFocus) 
    {
     document.getElementById(lastPFocus).style.background='';
-    if(document.getElementById('marker_'+lastPFocus))
+	marker = document.getElementById('marker_'+lastPFocus);
+    if(marker)
     { 
-     document.getElementById(lastPFocus).style.color='green';
-     document.getElementById('marker_'+lastPFocus).style.border='';
+     marker.style.background='darkgreen';
+     marker.style.border='';
      PFocusCount = 0;
     }
    }
@@ -257,17 +259,29 @@ echo "
    // set focus on current annotation
    p.style.background='#ccccff';
 
-   if(document.getElementById('marker_'+p.id))
-   { 
-    document.getElementById('marker_'+p.id).style.border='.1em dotted red';
+   marker = document.getElementById('marker_'+p.id);
+   if(marker)
+   {
+   
+    marker.style.border='.1em dotted red';
+    marker.style.background = 'limegreen';
     PFocusCount = 1;
    }
 
    lastPFocus = p.id;
 
-   document.getElementById('notation').innerHTML=notation;
+   document.getElementById('notation').innerHTML=p.title;
   }
 
+  function focusCoord(c)
+  {
+    p = document.getElementById(c.id.replace('marker_', ''));
+	if (p)
+	{
+		focusAnnotation(p);
+		p.scrollIntoView();
+	}
+  }
 
   function updateCoordinates()
   {
