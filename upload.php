@@ -221,6 +221,41 @@ echo "
 
 ";
 
+$docDir = 'docs/'.$bookId;
+if ($bookId && file_exists($docDir))
+{
+	echo '<table border=1 rules="all"><tr><th>'.translate('Uploaded Files', $st, 'sys').'</th>';
+	echo '<th>'.translate('Last Modified', $st, 'sys').'</th></tr>';
+	echo '<tr><td>OXES File</td><td>';
+	if (file_exists($docDir."/upload.oxes"))
+	{
+		echo gmdate("D, d M Y", filectime($docDir."/upload.oxes"));
+	}
+	else
+	{
+		echo "Not Uploaded";
+	}
+	echo '</td></tr>';
+	$files = scandir($docDir);
+	$images = array();
+	foreach($files as $file)
+	{
+		if(strtolower(substr($file,-4))=='.jpg')
+		{
+			$images[] = $file;
+		}
+	}
+	if (count($images) > 0)
+	{
+		sort($images);
+		foreach($images as $image)
+		{
+			echo '<tr><td>'.$image.'</td><td>'.gmdate("D, d M Y", filectime($docDir.'/'.$image)).'</td></tr>';
+		}
+	}
+	echo '</table>';
+}
+
 require "foot.php";
 
 ?>
