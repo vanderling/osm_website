@@ -13,18 +13,6 @@
 //$sec_flag='N';
 //if (isset($_COOKIE['cookie_info'])) {$sec_flag='Y';}
 
-// Test values
-$temp = 'temp/';
-$base = 'C:/Temp/OSM/';
-
-$webhost = "http://localhost";
-$hostname = "localhost";
-$username = "root";
-$password = "tester1";
-$dbname   = "osm";
-
-// Real values
-/*
 $temp = 'temp/';
 $base = '/home/kalaam.org/ancientScripture/htdocs/';
 
@@ -32,7 +20,6 @@ $hostname = "localhost";
 $username = "ancientScripture";
 $password = "BWueZvLHVdBDcPKz";
 $dbname   = "ancientScripture";
-*/
 
 $link     = mysql_connect($hostname, $username, $password) or die("unable to connect to database");
 $db       = mysql_select_db($dbname) or die("Unable to select database");
