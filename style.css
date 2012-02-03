@@ -68,7 +68,7 @@ body {
     position:absolute;
     top:50px;
     left:200px;
-    width:1000px;
+    width:850px;
     height:600px;
     overflow-x: hidden; 
     overflow-y: auto; 
@@ -78,7 +78,7 @@ body {
     position:absolute;
     top:650px;
     left:200px;
-    width:980px;
+    width:830px;
     height:200px;
     padding:10px;
     border:1px solid black;
@@ -99,7 +99,7 @@ body {
 #pageControlBottom {
     position:absolute;
     top:610px;
-    left:1200px;
+    left:1050px;
     width:250px;
     height:50px;
     padding:5px;
@@ -108,7 +108,7 @@ body {
 #annotations {
     position:absolute;
     top:50px;
-    left:1200px;
+    left:1050px;
     width:250px;
     height:550px;
     padding:5px;
