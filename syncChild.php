@@ -48,6 +48,15 @@ if($_POST['bookName'])
  $bookId = $myrow['id'];
 } 
 
+if ($_POST['lastFocus'])
+{
+	$lastFocus=$_POST['lastFocus'];
+}
+else
+{
+	$lastFocus='firsttime';
+}
+
 
 if($_POST['devent']) 
 {
@@ -269,6 +278,7 @@ echo "
    }
 
    lastPFocus = p.id;
+   document.getElementById('lastFocus').value=lastPFocus;   
 
    document.getElementById('notation').innerHTML=p.title;
   }
@@ -282,7 +292,20 @@ echo "
 		p.scrollIntoView();
 	}
   }
-
+  
+  function restoreLastFocus(key)
+  {
+	if (key)
+	{
+		p = document.getElementById(key);
+		if (p)
+		{
+			focusAnnotation(p);
+			p.scrollIntoView();
+		}
+	}
+  }
+  
   function updateCoordinates()
   {
    if(document.getElementById('marker_'+lastPFocus))
@@ -313,6 +336,7 @@ echo "
    newdiv.style.MozOpacity = .5;
    newdiv.style.opacity = .5;
    ni.appendChild(newdiv);
+   document.getElementById(lastPFocus).style.color = 'darkGreen';
   }
 
 /*
@@ -452,7 +476,7 @@ echo "
 
 <form id=\"form1\" name=\"form1\" action=\"\" method=post enctype=\"multipart/form-data\">
 
-<body oncontextmenu=\"return false;\">
+<body onload=\"restoreLastFocus('".$lastFocus."');\">
 
     <div id=\"docSelect\">
      ".$docSelections."
@@ -491,12 +515,13 @@ echo "
 
     <div id=\"pageControlBottom\">
      <input type=\"button\" value=\"".translate('Save', $st, 'sys')."\" onclick=\"saveFunc();\"> 
-     <input type=button value=\"".translate('Home', $st, 'sys')."\" onclick=\"window.location='https://marshallcomputer.org/Turk/'\">
+     <input type=button value=\"".translate('Home', $st, 'sys')."\" onclick=\"window.close();\">
     </div>
 
  <input name=\"devent\" id=\"devent\" type=\"hidden\">
  <input name=\"bibleTitleId\" value=\"".$bibleTitleId."\" type=\"hidden\">
  <input name=\"bookId\" value=\"".$bookId."\" type=\"hidden\">
+ <input name=\"lastFocus\" id=\"lastFocus\" value=\"".$lastFocus."\" type=\"hidden\">
 
 
  <script language=JavaScript>
