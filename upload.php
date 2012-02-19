@@ -35,6 +35,7 @@ if($_POST['bibleTitle'])
  }
 }
 
+$bookIdDisplay = "";
 if($_POST['bookName'])
 {
  $query =
@@ -48,6 +49,7 @@ if($_POST['bookName'])
  if($myrow) 
  {
   $bookId = $myrow['id'];
+  $bookIdDisplay = " (".$bookId.")";
   $_POST['bookDisplayOrder'] = $myrow['displayOrder'];
  } 
  else
@@ -192,7 +194,7 @@ echo "
   <img src=\"images/delete.png\" onclick=\"delete_title();\" title=\"delete Bible or Testament\">
 
  <p />
-  ".translate('Book name', $st, 'sys')." <br />
+  ".translate('Book name', $st, 'sys').$bookIdDisplay." <br />
   <input name=\"bookName\" id=\"bookName\" value=\"".$_POST['bookName']."\" size=40>
   <select onchange=\"document.getElementById('bookName').value=this.value; submit();\">
    <option value=\"\"> -- ".translate('Select a current name', $st, 'sys')." -- 
