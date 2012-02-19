@@ -224,12 +224,14 @@ echo "
 $docDir = 'docs/'.$bookId;
 if ($bookId && file_exists($docDir))
 {
-	echo '<table class="uploadFileTable"><tr><th class="uploadFileName">'.translate('Uploaded Files', $st, 'sys').'</th>';
-	echo '<th class="uploadFileDate">'.translate('Last Modified', $st, 'sys').'</th></tr>';
-	echo '<tr><td class="uploadFileName">OXES File</td><td class="uploadFileDate">';
+	echo '<table class=uploadFileTable><tr><th class="uploadFileName">'.translate('Uploaded Files', $st, 'sys').'</th>';
+	echo '<th class=uploadFileDate>'.translate('Last Modified', $st, 'sys').'</th>';
+	echo '<th class=uploadFileSize>'.translate('File Size', $st, 'sys').'</th></tr>';
+	echo '<tr><td class=uploadFileName>OXES File</td><td class=uploadFileDate>';
 	if (file_exists($docDir."/upload.oxes"))
 	{
 		echo gmdate("D, d M Y H:i T", filectime($docDir."/upload.oxes"));
+		echo '</td><td class=uploadFileSize>'.filesize($docDir."/upload.oxes");
 	}
 	else
 	{
@@ -250,7 +252,8 @@ if ($bookId && file_exists($docDir))
 		sort($images);
 		foreach($images as $image)
 		{
-			echo '<tr><td class="uploadFileName">'.$image.'</td><td class="uploadFileDate">'.gmdate("D, d M Y H:i T", filectime($docDir.'/'.$image)).'</td></tr>';
+			echo '<tr><td class=uploadFileName>'.$image.'</td><td class=uploadFileDate>'.gmdate("D, d M Y H:i T", filectime($docDir.'/'.$image)).'</td>';
+			echo '<td class=uploadFileSize>'.filesize($docDir.'/'.$image).'</tr>';
 		}
 	}
 	echo '</table>';

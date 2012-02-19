@@ -90,7 +90,7 @@ a:hover	 	 {text-decoration:none;      color:#333300}
 .answer .checkbox {}
 
 .uploadFileTable {
-	width: 70%;
+	width: 85%;
 	border: 1px solid black;
 	border-collapse:collapse;
 }
@@ -103,4 +103,10 @@ a:hover	 	 {text-decoration:none;      color:#333300}
 .uploadFileDate {
 	width: 25%;
 	border: 1px solid black;
+}
+
+.uploadFileSize{
+	width: 15%;
+	border: 1px solid black;
+	text-align: center;
 }
