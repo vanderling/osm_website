@@ -456,6 +456,14 @@ echo "
      }
 
   }
+  
+  function popupSpecialLetters()
+{
+	if (! window.focus)return true;
+	window.open('specLetters.html', 'specialLetters', 'width=450,height=640,scrollbars=yes');
+	return false;
+}
+
 
  </script>
 
@@ -514,6 +522,7 @@ echo "
     
     <div id=\"viewTitle\">
      ".translate('Transcription', $st, 'sys')."
+	 <button type='button' onclick='return popupSpecialLetters()'>".translate('Special Letters', $st, 'sys')."</button>
     </div>
 
     <div id=\"viewNotations\">".$detail."</div>
