@@ -521,8 +521,8 @@ echo "
 
     
     <div id=\"viewTitle\">
-     ".translate('Transcription', $st, 'sys')."
-	 <button type='button' onclick='return popupSpecialLetters()'>".translate('Special Letters', $st, 'sys')."</button>
+     <span>".translate('Transcription', $st, 'sys')."</span>
+	 <button id=\"specialLettersButton\" type='button' onclick='return popupSpecialLetters()'>".translate('Special Letters', $st, 'sys')."</button>
     </div>
 
     <div id=\"viewNotations\">".$detail."</div>

@@ -175,6 +175,11 @@ body {
     margin-left:20px;
 }
 
+#specialLettersButton {
+	position: absolute;
+	right: 0;
+}
+
 #previousPage {
     float:left;
 }
