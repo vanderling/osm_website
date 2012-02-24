@@ -232,7 +232,7 @@ if ($bookId && file_exists($docDir))
 	echo '<tr><td class=uploadFileName>OXES File</td><td class=uploadFileDate>';
 	if (file_exists($docDir."/upload.oxes"))
 	{
-		echo gmdate("D, d M Y H:i T", filectime($docDir."/upload.oxes"));
+		echo gmdate("D, d M Y H:i T", filemtime($docDir."/upload.oxes"));
 		echo '</td><td class=uploadFileSize>'.filesize($docDir."/upload.oxes");
 	}
 	else
@@ -254,7 +254,7 @@ if ($bookId && file_exists($docDir))
 		sort($images);
 		foreach($images as $image)
 		{
-			echo '<tr><td class=uploadFileName>'.$image.'</td><td class=uploadFileDate>'.gmdate("D, d M Y H:i T", filectime($docDir.'/'.$image)).'</td>';
+			echo '<tr><td class=uploadFileName>'.$image.'</td><td class=uploadFileDate>'.gmdate("D, d M Y H:i T", filemtime($docDir.'/'.$image)).'</td>';
 			echo '<td class=uploadFileSize>'.filesize($docDir.'/'.$image).'</tr>';
 		}
 	}
