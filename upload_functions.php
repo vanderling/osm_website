@@ -403,7 +403,13 @@ function upload_file($bookId, $name)
        if(strtolower(substr($zname,-4))=='.jpg'
        or strtolower(substr($zname,-5))=='.oxes')
        {
-        $zzname = substr($zname, strrpos($zname, "/")+1); 
+        $zzname = $zname;
+		$pos = strrpos($zzname, "/");
+		if ($pos >= 0)
+		{
+			$zzname = substr($zzname, $pos + 1);
+		}
+		correctExistingFiles($bookId, $zzname);
         $zip->renameName($zname, $zzname);
         $znames[] = $zzname;
        }
@@ -413,9 +419,30 @@ function upload_file($bookId, $name)
       unlink($uploadfile."/".$_FILES[$name]['name']);
      } else {echo "<pre>".translate('file unzip failed', $st, 'sys');}    
     }
+	else
+	{
+		correctExistingFiles($bookId, $_FILES[$name]['name']);
+	}
    }
   }
  } 
+}
+
+// correct error in previous uploads where first letter of file name was
+// being dropped when a zip file was used.
+function correctExistingFiles($bookId, $filename)
+{
+	$bookDir = "docs/".$bookId."/";
+	$badFileName = substr($filename, 1);
+	if (file_exists($bookDir.$badFileName))
+	{
+		unlink($bookDir.$badFileName);
+		unlink($bookDir."thumbs/".$badFileName);
+		$update = "Update notations
+			set `coordinates` = replace(`coordinates`, \"".$badFileName."\", \"".$filename."\")
+			where `coordinates` like \"%/".$bookId."/".$badFileName."%\"";
+		mysql_query($update) or die ("<pre>Updated Failed: ".$update.mysql_error()."</pre>");
+	}
 }
 
 ?>
