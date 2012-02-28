@@ -387,7 +387,7 @@ function upload_file($bookId, $name)
    if($ext=='.oxes' or $ext=='.OXES') {$_FILES[$name]['name']='upload.oxes';}
 
    if(!move_uploaded_file($_FILES[$name]['tmp_name'], $uploadfile."/".$_FILES[$name]['name']))
-   {echo "<pre>".translate('Problem uploading file', $st, 'sys')." ".$uploadfile."/".$_FILES[$name]['name']."</pre>";} 
+   {echo "<pre>".translate('Problem uploading file', $st, 'sys')." source: ".$_FILES[$name]['tmp_name']." dest: ".$uploadfile."/".$_FILES[$name]['name']."</pre>";} 
    else
    {
     if(strtolower(substr($_FILES[$name]['name'],-4))=='.zip')
@@ -405,7 +405,7 @@ function upload_file($bookId, $name)
        {
         $zzname = $zname;
 		$pos = strrpos($zzname, "/");
-		if ($pos >= 0)
+		if ($pos !== FALSE)
 		{
 			$zzname = substr($zzname, $pos + 1);
 		}
