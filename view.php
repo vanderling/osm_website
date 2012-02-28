@@ -274,7 +274,7 @@ echo "
     {document.getElementById(\"viewAnnotations\").innerHTML += '<p /><a href=\"' + a[2]+ '\" target=\"_blank\">' + a[2]+ '</a>';}
 
     document.getElementById(\"viewAnnotationsDiv\").style.visibility='visible';
-    document.getElementById(\"viewAnnotationsDiv\").style.top  = tempY+'px';
+    document.getElementById(\"viewAnnotationsDiv\").style.top  = (tempY-30-document.getElementById(\"viewAnnotationsDiv\").offsetHeight)+'px';
 //    document.getElementById(\"viewAnnotationsDiv\").style.left = tempX+'px';
     document.getElementById(\"viewAnnotationsDiv\").style.left = '200px';
   }
@@ -292,13 +292,13 @@ echo "
    if (IE) { // grab the x-y pos.s if browser is IE
     if(event && document.body) { 
      stempY = event.clientY; 
-     tempY = event.clientY + 30;
+     tempY = event.clientY;
      tempX = event.clientX;
     }
    } else {  // grab the x-y pos.s if browser is NS
     if(e) { 
      stempY = e.pageY; 
-     tempY = e.pageY + 30;
+     tempY = e.pageY;
      tempX = e.pageX;
     } 
    }
