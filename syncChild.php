@@ -500,7 +500,7 @@ echo "
     </div>
 
     <div id=\"doc\">
-     <h2> &nbsp;&nbsp;&nbsp; ".translate('Select image from left to start processing', $st, 'sys').".</h2>
+     <h2>".translate('Select a Bible and book from the drop-downs above, then select the first thumbnail image from left to start tagging. Remember to click "Save" when you finish tagging a page. Then select the next thumbnail to continue.', $st, 'sys')."</h2>
     </div>
     <div id=\"notation\"></div>
 
