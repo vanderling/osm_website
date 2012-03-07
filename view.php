@@ -458,12 +458,18 @@ echo "
   }
   
   function popupSpecialLetters()
-{
+  {
 	if (! window.focus)return true;
 	window.open('specLetters.html', 'specialLetters', 'width=450,height=640,scrollbars=yes');
 	return false;
-}
+  }
 
+  function popupAbbreviations()
+  {
+	if (! window.focus)return true;
+	window.open('languageAbbrevs.html', 'languageAbbreviations', 'width=450,height=640,scrollbars=yes');
+	return false;
+  }
 
  </script>
 
@@ -522,7 +528,10 @@ echo "
     
     <div id=\"viewTitle\">
      <span>".translate('Transcription below. To see pop-up notes click on an underlined word.', $st, 'sys')."</span>
-	 <button id=\"specialLettersButton\" type='button' onclick='return popupSpecialLetters()'>".translate('Special Letters', $st, 'sys')."</button>
+	 <span class=explanationButtons>
+		<button type='button' onclick='return popupAbbreviations()'>".translate('Languages', $st, 'sys')."</button>
+		<button type='button' onclick='return popupSpecialLetters()'>".translate('Special Letters', $st, 'sys')."</button>
+	 </span>
     </div>
 
     <div id=\"viewNotations\">".$detail."</div>
