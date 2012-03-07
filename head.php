@@ -14,7 +14,7 @@ $menu_tabs   = array
  (
   'upload.php'=>'Upload',
   'books.php'=>'Bibles / Books',
-  'sync.php'=>'Synchronize',
+  'sync.php'=>'Synchronize / Edit',
   'viewParent.php'=>'View',
   'translations.php'=>'Translations',
   'reprocess.php'=>'Reprocess',
