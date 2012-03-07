@@ -521,7 +521,7 @@ echo "
 
     
     <div id=\"viewTitle\">
-     <span>".translate('Transcription', $st, 'sys')."</span>
+     <span>".translate('Transcription below. To see pop-up notes click on an underlined word.', $st, 'sys')."</span>
 	 <button id=\"specialLettersButton\" type='button' onclick='return popupSpecialLetters()'>".translate('Special Letters', $st, 'sys')."</button>
     </div>
 
