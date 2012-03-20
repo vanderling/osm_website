@@ -219,6 +219,7 @@ echo "
   imageFiles = [".$js_imageFiles."];
   docCount = 0;
   lastNotation = '';
+  lastScrolledBy = '';
 
   function setDoc(p)
   {
@@ -380,6 +381,12 @@ echo "
 
   function scrollJPG()
   {
+	 if (lastScrolledBy == 'text')
+	 {
+		lastScrolledBy = '';
+		return;
+	 }
+	 lastScrolledBy = 'jpeg';
      var children = document.getElementById('viewDoc').childNodes;
      for (i=0; i<children.length; i++)
      {
@@ -395,6 +402,12 @@ echo "
 
   function scrollText()
   {
+	 if (lastScrolledBy == 'jpeg')
+	 {
+		lastScrolledBy = '';
+		return;
+	 }
+	 lastScrolledBy = 'text';
      displayChapter();
 
      var key = el.replace(\"notation_\", \"\");
