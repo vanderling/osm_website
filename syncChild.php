@@ -500,7 +500,30 @@ echo "
     </div>
 
     <div id=\"doc\">
-     <h2>".translate('Select a Bible and book from the drop-downs above, then select the first thumbnail image from left to start tagging. Remember to click "Save" when you finish tagging a page. Then select the next thumbnail to continue.', $st, 'sys')."</h2>
+		<h3 class=instructionsHeading>BASIC INSTRUCTIONS FOR SYNC TAGGERS:</h3>
+		<ul class=instructions>
+			<li>Select your assigned Bible and book from the drop-down lists above.</li>
+			<li>Select the first image from the column of thumbnails on the left.</li>
+			<li>Click once on a verse in the list of chapter/verse numbers on the right, and click again on the equivalent verse number in the jpeg image. A green box (tag) will appear on the jpeg. Continue to the next verse.</li>
+			<li>If a ch/vs number in the verse list does not get highlighted when you click on it, click Save, which refreshes the data. If this doesn't work either, exit the sync program (click Home) and try again.</li>
+			<li>Click \"Save\" when you finish tagging all the verses on a page, then wait while your data is transferred to the server. The save is complete when the last verse number you tagged appears at the top of the verse list.</li>
+			<li>Select the next jpeg thumbnail and continue tagging.</li>
+		</ul>
+		<h3 class=instructionsHeading>WHERE TO PUT THE GREEN TAGS:</h3>
+		<ul class=instructions>
+			<li>Always aim high on the horizontal plane. The top edge of the green box must be slightly higher than the tallest letter in the line of Ottoman text, including vowel points above the letters.</li>
+			<li>Special cases: Tag 000.000 at the very top of the first jpeg image.</li>
+			<li>Tag ***.000, etc. above the chapter header entirely, if necessary on the last line of the previous chapter.</li>
+			<li>Tag ***.001, etc. (vs.1 of each chapter) just above the Ottoman letters of the chapter header.</li>
+			<li>Tag ***.002 and all subsequent verses on or slightly above the equivalent number on the jpeg image...</li>
+			<li>Except that on a new page, please place the first tag above the page header, not on its verse number.</li>
+		</ul>
+		<h3 class=instructionsHeading>CORRECTING ERRORS:</h3>
+		<ul class=instructions>
+			<li>When you highlight a previously tagged verse its jpeg will load and the tag will show in light green (lighter than the other tags). You may have to scroll down the jpeg to find the light green tag.</li>
+			<li>To remove this tag and adjust its location, click on the red X, then on a new location on the jpeg.</li>
+			<li>Please do not click on the little pencil next to the X, unless you are a transcription editor.</li>
+		</ul>
     </div>
     <div id=\"notation\"></div>
 
