@@ -316,6 +316,13 @@ echo "
 
    document.getElementById('viewDoc').onscroll = function() 
    {
+   	 if (lastScrolledBy == 'text')
+	 {
+		lastScrolledBy = '';
+		return;
+	 }
+	 lastScrolledBy = 'jpeg';
+
     if(stempY < document.getElementById('viewNotations').offsetTop)
     {
      scrollJPG();
@@ -381,12 +388,6 @@ echo "
 
   function scrollJPG()
   {
-	 if (lastScrolledBy == 'text')
-	 {
-		lastScrolledBy = '';
-		return;
-	 }
-	 lastScrolledBy = 'jpeg';
      var children = document.getElementById('viewDoc').childNodes;
      for (i=0; i<children.length; i++)
      {
