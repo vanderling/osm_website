@@ -462,7 +462,7 @@ echo "
         {
          el = children[ii].id;
          var str = el.split('.')
-         document.getElementById('chapter').value = 'chapter_'+parseInt(str[1])        
+         document.getElementById('chapter').value = 'chapter_'+parseInt(str[1],10)        
          break;
         }
        }
