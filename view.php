@@ -227,7 +227,7 @@ echo "
    if(docCount>imageFiles.length-1) {docCount=imageFiles.length-1; return false;}
    if(docCount<0) {docCount=0; return false;}
  
-   document.getElementById('viewDoc').innerHTML = \"<img src='\"+imageFiles[docCount]+\"'>\";
+   document.getElementById('viewDoc').innerHTML = \"<img class=textimage src='\"+imageFiles[docCount]+\"'>\";
    document.getElementById('viewDoc').scrollTop = 0;
 
    for(key in coordinates)
