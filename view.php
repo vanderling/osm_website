@@ -12,6 +12,12 @@
 
 require 'config.php';
 
+if (!$_POST['bibleTitle'] and $_COOKIE['bibleTitle'])
+{
+	$_POST['bibleTitle'] = $_COOKIE['bibleTitle'];
+	$_POST['bookName'] = $_COOKIE['bookName'];
+}
+
 // get bible title options
 $bibleTitle_options = '';
 $query =
@@ -35,6 +41,7 @@ while($myrow=mysql_fetch_array($result))
 
 if($_POST['bibleTitle'])
 {
+ setcookie('bibleTitle', $_POST['bibleTitle']);
  $query =
  "SELECT * FROM `bibleTitles`
   WHERE `title` = \"".mysql_real_escape_string($_POST['bibleTitle'])."\"
@@ -68,6 +75,7 @@ while($myrow=mysql_fetch_array($result))
 
 if($_POST['bookName'])
 {
+ setcookie('bookName', $_POST['bookName']);
  $query =
  "SELECT * FROM `books`
   WHERE `name`          = \"".mysql_real_escape_string($_POST['bookName'])."\"
