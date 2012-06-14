@@ -243,7 +243,7 @@ body {
 a {
     text-decoration:none;
     display:inline;
-    color:black;
+    color:inherit;
     margin:0;
     padding:0;
 }
