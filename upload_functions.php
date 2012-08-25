@@ -154,7 +154,20 @@ function processAnnotation(&$book, $annotation)
 	$book[$akey]['notationCategory'][]       = str_replace('"', "''", $annotation['notationCategories']['category']['value']);
 	$book[$akey]['notationQuote'][]          = str_replace('"', "''", $annotation['notationQuote']['para']['span']['value']);
 	$book[$akey]['notationDiscussion'][]     = str_replace('"', "''", $annotation['notationDiscussion']['para']['span']['value']);
-	$book[$akey]['notationRecommendation'][] = str_replace('"', "''", $annotation['notationRecommendation']['para']['a']['value']);
+	if (isset($annotation['notationRecommendation']['para']['a'][0]))
+	{
+		$recommend=str_replace('"', "''", $annotation['notationRecommendation']['para']['a'][0]['value']);
+		for($r=1; $r<count($annotation['notationRecommendation']['para']['a']); $r++)
+		{
+			// use tab character to separate links so they can be parsed for display
+			$recommend .= "\t" . str_replace('"', "''", $annotation['notationRecommendation']['para']['a'][$r]['value']);
+		}
+		$book[$akey]['notationRecommendation'][] = $recommend;
+	}
+	else
+	{
+		$book[$akey]['notationRecommendation'][] = str_replace('"', "''", $annotation['notationRecommendation']['para']['a']['value']);
+	}
 }
 
 function processUpload($bookId, $bibleTitleId)

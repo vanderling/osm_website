@@ -277,10 +277,14 @@ echo "
 
     document.getElementById(\"viewAnnotations\").innerHTML = '<b>' + a[0] + '</b> : ' + a[1];
 
-    if(a[2].search('http'))
-    {document.getElementById(\"viewAnnotations\").innerHTML += '<p />' + a[2];}
-    else
-    {document.getElementById(\"viewAnnotations\").innerHTML += '<p /><a href=\"' + a[2]+ '\" target=\"_blank\">' + a[2]+ '</a>';}
+    var links = a[2].split('\t');
+	for (i =0; i < links.length; i++)
+	{
+		if(links[i].search('http'))
+		{document.getElementById(\"viewAnnotations\").innerHTML += '<p />' + links[i];}
+		else
+		{document.getElementById(\"viewAnnotations\").innerHTML += '<p /><a href=\"' + links[i]+ '\" target=\"_blank\">' + links[i]+ '</a>';}
+	}
 
     document.getElementById(\"viewAnnotationsDiv\").style.visibility='visible';
     document.getElementById(\"viewAnnotationsDiv\").style.top  = (tempY-30-document.getElementById(\"viewAnnotationsDiv\").offsetHeight)+'px';
