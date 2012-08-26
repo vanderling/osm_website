@@ -166,7 +166,10 @@ function processAnnotation(&$book, $annotation)
 	}
 	else
 	{
-		$book[$akey]['notationRecommendation'][] = str_replace('"', "''", $annotation['notationRecommendation']['para']['a']['value']);
+		$recommend = str_replace('"', "''", $annotation['notationRecommendation']['para']['a']['value']);
+		// separate combined references by replacing ; with tab
+		$recommend = preg_replace('/\s*;\s*http/', "\thttp", $recommend);
+		$book[$akey]['notationRecommendation'][] = $recommend;
 	}
 }
 
