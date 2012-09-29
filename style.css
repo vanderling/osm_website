@@ -250,6 +250,7 @@ a {
 
 [target=_blank] {
     text-decoration:underline;
+	font-size: .9em;
     display:inline;
     color:blue;
     margin:0;

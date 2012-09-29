@@ -156,17 +156,17 @@ function processAnnotation(&$book, $annotation)
 	$book[$akey]['notationDiscussion'][]     = str_replace('"', "''", $annotation['notationDiscussion']['para']['span']['value']);
 	if (isset($annotation['notationRecommendation']['para']['a'][0]))
 	{
-		$recommend=str_replace('"', "''", $annotation['notationRecommendation']['para']['a'][0]['value']);
+		$recommend=trim(str_replace('"', "''", $annotation['notationRecommendation']['para']['a'][0]['value']));
 		for($r=1; $r<count($annotation['notationRecommendation']['para']['a']); $r++)
 		{
 			// use tab character to separate links so they can be parsed for display
-			$recommend .= "\t" . str_replace('"', "''", $annotation['notationRecommendation']['para']['a'][$r]['value']);
+			$recommend .= "\t" . trim(str_replace('"', "''", $annotation['notationRecommendation']['para']['a'][$r]['value']));
 		}
 		$book[$akey]['notationRecommendation'][] = $recommend;
 	}
 	else
 	{
-		$recommend = str_replace('"', "''", $annotation['notationRecommendation']['para']['a']['value']);
+		$recommend = trim(str_replace('"', "''", $annotation['notationRecommendation']['para']['a']['value']));
 		// separate combined references by replacing ; with tab
 		$recommend = preg_replace('/\s*;\s*http/', "\thttp", $recommend);
 		$book[$akey]['notationRecommendation'][] = $recommend;

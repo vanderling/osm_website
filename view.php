@@ -194,7 +194,7 @@ while($myrow=mysql_fetch_array($result))
 		$quote = Normalizer::normalize($quote, Normalizer::FORM_KC);
 		if ($quote != "")
 		{
-			$dnotation = str_replace($quote, "\r\n<div id=\"quote".$myrow['key']."_".$ii."\" class=\"quote\" onclick=setTimeout(\"setAnnotations('".$myrow['key']."_".$ii."')\",250); onclick=setTimeout(\"setAnnotations('".$myrow['key']."_".$ii."')\",250);><a href=\"#\">".$quote."</a></div>", $dnotation);
+			$dnotation = str_replace($quote, "\r\n<div id=\"quote".$myrow['key']."_".$ii."\" class=\"quote\" onclick=setTimeout(\"setAnnotations('".$myrow['key']."_".$ii."')\",250)><a href=\"#\">".$quote."</a></div>", $dnotation);
 			$quotes[$quote] = $myrow['key']."_".$ii;  
 
 			$js_annotations .= "\"".$myrow['key']."_".$ii."\":\"".
@@ -283,7 +283,13 @@ echo "
 		if(links[i].search('http'))
 		{document.getElementById(\"viewAnnotations\").innerHTML += '<p />' + links[i];}
 		else
-		{document.getElementById(\"viewAnnotations\").innerHTML += '<p /><a href=\"' + links[i]+ '\" target=\"_blank\">' + links[i]+ '</a>';}
+		{
+			if (i == 0)
+			{document.getElementById(\"viewAnnotations\").innerHTML += '<p />';}
+			else
+			{document.getElementById(\"viewAnnotations\").innerHTML += '<br>';}
+			document.getElementById(\"viewAnnotations\").innerHTML += '<a href=\"' + links[i]+ '\" target=\"_blank\">' + links[i]+ '</a>';
+		}
 	}
 
     document.getElementById(\"viewAnnotationsDiv\").style.visibility='visible';
