@@ -239,6 +239,7 @@ function processUpload($bookId, $bibleTitleId)
 
    // extract book contents
    $psection = $contents['oxes']['oxesText']['canon']['book']['section'];
+   if(!isset($psection[0])) {$psection = array($psection);}
 
    foreach($psection as $sections)
    {
