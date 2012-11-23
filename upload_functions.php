@@ -148,10 +148,16 @@ function xml2array($contents, $get_attributes=1, $priority = 'attribute') {
 
 function processAnnotation(&$book, $annotation)
 {
+	$category = $annotation['notationCategories']['category']['value'];
+	// skip notes with unwanted categories
+	if ($category == "LL" or $category == "Misc" || $category == "NoNote")
+	{
+		return;
+	}
 	$akey = $annotation['attr']['oxesRef'];
 	list($b, $c, $v) = explode(".", $akey);
 	$akey = $b.".".str_pad($c,3,"0",STR_PAD_LEFT).".".str_pad($v,3,"0",STR_PAD_LEFT);  
-	$book[$akey]['notationCategory'][]       = str_replace('"', "''", $annotation['notationCategories']['category']['value']);
+	$book[$akey]['notationCategory'][]       = str_replace('"', "''", $category);
 	$book[$akey]['notationQuote'][]          = str_replace('"', "''", $annotation['notationQuote']['para']['span']['value']);
 	$book[$akey]['notationDiscussion'][]     = str_replace('"', "''", $annotation['notationDiscussion']['para']['span']['value']);
 	if (isset($annotation['notationRecommendation']['para']['a'][0]))
