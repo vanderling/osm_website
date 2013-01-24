@@ -150,7 +150,10 @@ function processAnnotation(&$book, $annotation)
 {
 	$category = $annotation['notationCategories']['category']['value'];
 	// skip notes with unwanted categories
-	if ($category == "LL" or $category == "Misc" || $category == "NoNote")
+	$unwantedCategories = array("LL", "Misc", "NoNote", "1665-Ali-Bey",
+	"1739-Schroeder", "1819-Kieffer", "1827-Kieffer", "1857-Turabi",
+	"1866-Selim", "1886-KM"); 
+	if (in_array($category, $unwantedCategories))
 	{
 		return;
 	}
