@@ -18,7 +18,7 @@ echo "
 
 <h3>Embed code:</h3>
 <hr>
-&lt;iframe src='http://as.marshallcomputer.org/view.php?iso=".$sec_code."' width=900px; height=740px;&gt;&lt;/iframe&gt;
+&lt;iframe src='http://as.premiumtextreader.com/view.php?iso=".$sec_code."' width=900px; height=740px;&gt;&lt;/iframe&gt;
 <hr>
 <h3>Optional src parameters:</h3>
 <table>
