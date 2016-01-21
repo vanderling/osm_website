@@ -67,7 +67,7 @@ echo <<<END
    <br>
    <br>
    <p><b> $dname </b></p>  
-   <p> Please select an option above to proceed. </p>
+   <p> Please select an option from the tabs above to proceed. </p>
 
 END;
 }
